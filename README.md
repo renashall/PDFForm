@@ -3,9 +3,9 @@ PDF form fill in brower for typescript
 
 this is port from [phihag/pdfform.js](https://github.com/phihag/pdfform.js)
 # limit
-not support PDF with radio button
-not use pdfjs
-in some case, it wouldn't parse PDF FORM template **try to use compress and reduce size function in Acrobat**
+* not support PDF with radio button
+* not use pdfjs
+* in some case, it wouldn't parse PDF FORM template **try to use compress and reduce size function in Acrobat**
 # changes
  1. change into typescript,old repo is realy old javascript(even not a ES style)
  2. make some codes more easy to read
