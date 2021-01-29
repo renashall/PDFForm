@@ -1086,8 +1086,9 @@ function modify_xfa(doc: PDFDocument, objects: PDFObjects, out: BytesIO, index: 
  * fillForm
  * @param buf Uint8Array of an valid PDF file
  * @param fields {fieldName:[value1,value2]}
+ * @param ro boolean Set to true for read-only fields
  */
-export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map) {
+export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, ro: boolean = true) {
   const doc = parse(new Uint8Array(buf));
   assert(doc.startXRef);
   const objects = new PDFObjects(doc);
@@ -1127,7 +1128,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map) 
       if (ft_name == 'Tx') {
         n.map.V = '' + value;
       } else if (ft_name == 'Btn') {
-        n.map.AS = n.map.V = n.map.DV = (value ? new Name('0') : new Name('Off')) //new type should be Name(0) not Name('Yes')
+        n.map.AS = n.map.V = n.map.DV = (value ? new Name('0') : new Name('Off')) // New type should be Name(0) not Name('Yes')
       } else if (ft_name == 'Ch') {
         n.map.V = '' + value;
       } else if (ft_name == 'Sig') {
@@ -1137,6 +1138,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map) 
       }
     }
     debug?console.log('filled',n):''
+    n.map.Ff = +ro; // Set field as read-only (https://github.com/phihag/pdfform.js/issues/13#issuecomment-523920602)
     const ref = n._pdfform_ref;
     const e = objects.update(ref, n);
     objects.write_object(out, e);
