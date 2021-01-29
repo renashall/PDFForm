@@ -1243,7 +1243,7 @@ export function list_fields(buf: ArrayLike<number> | ArrayBufferLike) {
  * convert blob into arraybuffer
  * @param blob
  */
-export const blob2Buffer = async (blob: Blob) => await new Response(blob).arrayBuffer()
+export const blob2Buffer = async (blob: Blob) => await new Response(blob).arrayBuffer();
 /**
  * put buf as file to download or open in new window
  * @param buf       arraybuffer | Uint8Array
@@ -1252,10 +1252,10 @@ export const blob2Buffer = async (blob: Blob) => await new Response(blob).arrayB
  * @param downloadName string|undefined
  */
 export const openOrDownload = (buf: Uint8Array,
+                               downloadName?: string,
                                fileType: string = "application/pdf",
-                               newWindow: boolean = true,
-                               downloadName?: string) => new Promise((r, j) => {
-  const newBlob = new Blob([buf], {type: fileType})
+                               newWindow: boolean = true) => new Promise((r, j) => {
+  const newBlob = new Blob([buf], {type: fileType});
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(newBlob);
     return;
@@ -1273,5 +1273,5 @@ export const openOrDownload = (buf: Uint8Array,
     r(undefined);
   }, 100);
 
-})
+});
 //</editor-fold>
