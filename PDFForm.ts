@@ -1,23 +1,4 @@
 import * as pako from 'pako'
-/*import {NuxtAxiosInstance} from "nuxt";*/
-
-
-/**
- * not support PDF with radio button
- * not sure about how to use checkbox
- * ===============================================================
- * this module is mostly from https://github.com/phihag/pdfform.js
- * ===============================================================
- * 1. change into typescript,old repo is old school javascript(even not a ES style)
- * 2. make some codes more easy to read
- * 3. remove pdfjs dependency
- * 4. fix for muilt Tx field
- * 5. fix for checkbox field
- * 5. add help function for convert blob into arraybuffer (so you donot need to GOOGLE it)
- * 7. add help function for download blob or show in window (so you donot need to GOOGLE it)
- * 8. tested with browser (chrome ,not in IE or edege)
- * by zen.liu 2019-11-01
- */
 
 const debug=false
 //<editor-fold desc="MiniPDF">
@@ -1294,25 +1275,3 @@ export const openOrDownload = (buf: Uint8Array,
 
 })
 //</editor-fold>
-/*
-export const example = async (ax: NuxtAxiosInstance) => {
-  // here use axios (with nuxt),you can use XHR
-  // save you PDF form file as *.pdt to avoid been block by download manager such as IDM
-  const r = await ax.$get(`${window.location.href.split('/login')[0]}/tmp1.pdt`, {responseType: "arraybuffer"})
-  if (!r) throw Error("template not found")
-  //create blob from response body
-  const blob = new Blob([r], {
-    type: 'application/pdf',
-  })
-  const buf = await blob2Buffer(blob)
-  console.log('fields', list_fields(buf))
-  const out = fillForm(buf, {
-    text: ['名字'],
-    TXT: ['名字1'],
-    ck1: [true],
-    ck2: [true]
-  });
-  openOrDownload(out)//`test.pdf`)
-}*/
-
-
