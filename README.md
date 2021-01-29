@@ -1,19 +1,43 @@
 # PDFForm
-PDF form fill in brower for typescript
 
-this is port from [phihag/pdfform.js](https://github.com/phihag/pdfform.js)
-# limit
-* not support PDF with radio button
-* not use pdfjs
-* in some case, it wouldn't parse PDF FORM template **try to use compress and reduce size function in Acrobat**
-# changes
- 1. change into typescript,old repo is realy old javascript(even not a ES style)
- 2. make some codes more easy to read
- 3. remove pdfjs dependency
- 4. fix for muilt Tx field
- 5. fix for checkbox field
- 5. add help function for convert blob into arraybuffer (so you donot need to GOOGLE it)
- 7. add help function for download blob or show in window (so you donot need to GOOGLE it)
- 8. tested with browser (chrome ,not in IE or edege)
+Client-side PDF form filler written in TypeScript.
 
-# by zen.liu 2019-11-01, only help are welcome; thanks for phihag/pdfform.js, if you want to put this work into you repo as Typescript support are always be welcome
+Original source code by [ZenLiuCN](https://github.com/ZenLiuCN/PDFForm); a port of the [phihag/pdfform.js](https://github.com/phihag/pdfform.js) project.
+
+## Limitations
+
+* Does not support radio buttons.
+* May fail with some PDF forms.
+  * Original author suggests to try the "compress and reduce size function in Acrobat".
+  * Converting the PDF to v1.5 may also help, as v1.6+ increased the complexity of form manipulation.
+
+## Usage Example
+
+```ts
+import * as PDFForm from "module_path_for_pdfform";
+
+// Read source PDF as buffer
+const inputPDF = // pdf_as_arraybuffer
+
+// Create blob from buffer
+const blob = new Blob([inputPDF], {
+  type: "application/pdf",
+});
+
+// Convert blob back into a buffer
+const buffer = await PDFForm.blob2Buffer(blob);
+
+// Output all detected form fields
+console.log("PDF fields:", PDFForm.list_fields(buffer));
+
+// Fill form using key/[value] pairs
+const outputPDF = PDFForm.fillForm(buffer, {
+  txt1: ["first name"],  // text field
+  txt2: ["last name"],   // text field
+  chk1: [true],          // checkbox field
+  chk2: [true]           // checkbox field
+});
+
+// Open or download the modified PDF
+PDFForm.openOrDownload(outputPDF, "file_name.pdf");
+```
