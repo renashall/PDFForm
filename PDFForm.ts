@@ -884,7 +884,7 @@ class PDFObjects {
     assert(isArray(this.entries), 'xref entries should be an Array')
   }
 
-  add(obj, gen): map {
+  add(obj: any, gen: any): map {
     const e = {
       obj: obj,
       gen: gen,
@@ -1015,11 +1015,11 @@ function visit_acroform_fields(doc: PDFDocument, callback: Function) {
   } else {
     // No AcroForm? Look in the pages themselves
     const pages = doc.fetch(doc.root.map.Pages);
-    pages.map.Kids.forEach((page_ref) => {
+    pages.map.Kids.forEach((page_ref: any) => {
       const page = doc.fetch(page_ref);
       const annots_ref = page.map.Annots;
       const annots = doc.fetch(annots_ref);
-      annots.forEach((annot_ref) => {
+      annots.forEach((annot_ref: any) => {
         const n = doc.fetch(annot_ref);
         n._pdfform_ref = annot_ref;
         n._inpage_annot = true;
@@ -1096,7 +1096,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, 
   const out = new BytesIO();
   out.write_buf(new Uint8Array(buf));
   // Change AcroForms
-  visit_acroform_fields(doc, (n) => {
+  visit_acroform_fields(doc, (n: any) => {
     const value = acroform_match_spec(n, fields);
     if (value === undefined) {
       return;
@@ -1157,7 +1157,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, 
     }
   }
   // Change XFA
-  modify_xfa(doc, objects, out, 'datasets', (str) => {
+  modify_xfa(doc, objects, out, 'datasets', (str: string) => {
     // Fix up XML
     str = str.replace(/\n(\/?>)/g, '$1\n');
     const ds_doc = new DOMParser().parseFromString(str, 'application/xml');
@@ -1201,7 +1201,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, 
 export function list_fields(buf: ArrayLike<number> | ArrayBufferLike) {
   const doc = parse(new Uint8Array(buf));
   const res: map = {};
-  visit_acroform_fields(doc, (n) => {
+  visit_acroform_fields(doc, (n: any) => {
     const raw_name = pdf_decode_str(n.map.T);
     let name = raw_name;
     let index = 0;
