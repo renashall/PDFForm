@@ -14,30 +14,33 @@ Original source code by [ZenLiuCN](https://github.com/ZenLiuCN/PDFForm); a port 
 ## Usage Example
 
 ```ts
-import * as PDFForm from "module_path_for_pdfform";
+import * as PDFForm from "pdfform";
 
-// Read source PDF as buffer
-const inputPDF = // pdf_as_arraybuffer
+function async generate(): Promise<void> {
+  // Fetch PDF as arraybuffer
+  const response = await fetch("path/to/input.pdf");
+  const inputPDF = await response.arrayBuffer();
 
-// Create blob from buffer
-const blob = new Blob([inputPDF], {
-  type: "application/pdf",
-});
+  // Create blob from PDF buffer with appropriate type
+  const blob = new Blob([inputPDF], {
+    type: "application/pdf",
+  });
 
-// Convert blob back into a buffer
-const buffer = await PDFForm.blob2Buffer(blob);
+  // Convert blob back into a buffer
+  const buffer = await PDFForm.blob2Buffer(blob);
 
-// Output all detected form fields
-console.log("PDF fields:", PDFForm.list_fields(buffer));
+  // Output all detected form fields
+  console.log("PDF fields:", PDFForm.list_fields(buffer));
 
-// Fill form using key/[value] pairs
-const outputPDF = PDFForm.fillForm(buffer, {
-  txt1: ["first name"],  // text field
-  txt2: ["last name"],   // text field
-  chk1: [true],          // checkbox field
-  chk2: [true]           // checkbox field
-});
+  // Fill form using key/[value] pairs
+  const outputPDF = PDFForm.fillForm(buffer, {
+    txt1: ["first name"],  // text field
+    txt2: ["last name"],   // text field
+    chk1: [true],          // checkbox field
+    chk2: [true]           // checkbox field
+  });
 
-// Open or download the modified PDF
-PDFForm.openOrDownload(outputPDF, "file_name.pdf");
+  // Open or download the modified PDF
+  PDFForm.openOrDownload(outputPDF, "output_file_name.pdf");
+}
 ```
