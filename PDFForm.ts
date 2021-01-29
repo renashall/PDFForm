@@ -644,8 +644,8 @@ class PDFReader {
       });
     }
 
-    const meta: Dict = <Dict>this.parse();
-    if (meta ! instanceof Dict) {
+    const meta: Dict = this.parse() as Dict;
+    if (!(meta instanceof Dict)) {
       throw Error('parse meta error')
     }
     if (meta.map.Prev) {
@@ -1270,7 +1270,7 @@ export const openOrDownload = (buf: Uint8Array,
   setTimeout(() => {
     document.body.removeChild(link);
     window.URL.revokeObjectURL(data);
-    r()
+    r(undefined);
   }, 100);
 
 })
