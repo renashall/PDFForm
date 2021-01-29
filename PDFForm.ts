@@ -141,12 +141,11 @@ function parse(buf: Uint8Array) {
 }
 
 class PDFDocument {
-  public xref: Array<map>
-  public meta: map
-  public root: Stream
-  public acroForm: Stream
-  public xref_type: string
-  private version: string
+  public xref: Array<map>;
+  public meta: map;
+  public root: Stream;
+  public acroForm: Stream;
+  public xref_type: string;
 
   constructor(
     public buf: Uint8Array,
@@ -156,17 +155,17 @@ class PDFDocument {
   ) {
 
     check_header(buf)
-    this.reader.pos = this.startXRef
+    this.reader.pos = this.startXRef;
 
-    const xref_res = this.reader.parse_xref()
+    const xref_res = this.reader.parse_xref();
 
     this.xref = xref_res.xref;
     assert(isArray(this.xref));
     this.meta = xref_res.meta;
-    assert(this.meta.Root, 'meta.Root missing')
-    assert(isRef(this.meta.Root), 'meta.root should be Ref')
-    this.root = this.fetch(this.meta.Root)
-    this.xref_type = this.reader.xref_type
+    assert(this.meta.Root, 'meta.Root missing');
+    assert(isRef(this.meta.Root), 'meta.root should be Ref');
+    this.root = this.fetch(this.meta.Root);
+    this.xref_type = this.reader.xref_type;
     const af_node = this.get_acroform_ref();
     if (isRef(af_node)) {
       this.acroForm = this.fetch(af_node);
