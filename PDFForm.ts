@@ -232,7 +232,7 @@ class PDFDocument {
 }
 
 class PDFReader {
-  public xref_type: string
+  public xref_type!: string;
 
   constructor(
     public buf: Uint8Array,
