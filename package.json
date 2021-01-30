@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/renashall/PDFForm#readme",
   "dependencies": {
+    "@types/pako": "^1.0.1",
     "pako": "^2.0.3"
   }
 }
