@@ -30,7 +30,7 @@ function async generate(): Promise<void> {
   const buffer = await PDFForm.blob2Buffer(blob);
 
   // Output all detected form fields
-  console.log("PDF fields:", PDFForm.list_fields(buffer));
+  console.log("PDF fields:", PDFForm.listFields(buffer));
 
   // Fill form using key/[value] pairs
   const outputPDF = PDFForm.fillForm(buffer, {

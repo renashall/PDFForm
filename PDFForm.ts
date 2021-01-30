@@ -1198,7 +1198,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, 
  *
  * @param buf Uint8Array of an valid PDF file
  */
-export function list_fields(buf: ArrayLike<number> | ArrayBufferLike) {
+export function listFields(buf: ArrayLike<number> | ArrayBufferLike) {
   const doc = parse(new Uint8Array(buf));
   const res: map = {};
   visit_acroform_fields(doc, (n: any) => {
