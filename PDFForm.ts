@@ -1082,10 +1082,10 @@ function modify_xfa(doc: PDFDocument, objects: PDFObjects, out: BytesIO, index: 
 }
 
 /**
- * Fill out PDF form (text and checkboxes)
+ * Fill out a PDF form (text fields and checkboxes)
  * @param buf Uint8Array of an valid PDF file
  * @param fields {fieldName:[value1,value2]}
- * @param ro boolean Set to true for read-only fields
+ * @param ro boolean Set to true for read-only fields (default)
  */
 export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, ro: boolean = true) {
   const doc = parse(new Uint8Array(buf));
@@ -1198,7 +1198,7 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, 
 }
 
 /**
- * List all detected fields from PDF form
+ * List all detected fields from a PDF form
  * @param buf Uint8Array of an valid PDF file
  */
 export function listFields(buf: ArrayLike<number> | ArrayBufferLike) {
@@ -1244,13 +1244,13 @@ export function listFields(buf: ArrayLike<number> | ArrayBufferLike) {
 }
 
 /**
- * Convert blob into arraybuffer
+ * Convert a blob into an arraybuffer
  * @param blob
  */
 export const blob2Buffer = async (blob: Blob) => await new Response(blob).arrayBuffer();
 
 /**
- * Output PDF as file to download or open in new window
+ * Output a PDF as a file to be downloaded or opened in new window
  * @param buf       arraybuffer | Uint8Array
  * @param fileType  string mime type name;default: "application/pdf"
  * @param newWindow boolean default: true
