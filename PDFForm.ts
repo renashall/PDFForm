@@ -1137,7 +1137,10 @@ export function fillForm(buf: ArrayLike<number> | ArrayBufferLike, fields: map, 
       }
     }
     debug?console.log('filled',n):''
-    n.map.Ff = +ro; // Set field as read-only (https://github.com/phihag/pdfform.js/issues/13#issuecomment-523920602)
+    if (ro) {
+      // Set field as read-only (https://github.com/phihag/pdfform.js/issues/13#issuecomment-523920602)
+      n.map.Ff = 1;
+    }
     const ref = n._pdfform_ref;
     const e = objects.update(ref, n);
     objects.write_object(out, e);
