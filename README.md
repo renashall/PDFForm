@@ -2,14 +2,15 @@
 
 Client-side PDF form filler written in TypeScript.
 
-Original source code by [ZenLiuCN](https://github.com/ZenLiuCN/PDFForm); a port of the [phihag/pdfform.js](https://github.com/phihag/pdfform.js) project.
+Original source code by [ZenLiuCN](https://github.com/ZenLiuCN/PDFForm); a TypeScript adaption of the [phihag/pdfform.js](https://github.com/phihag/pdfform.js) project.
 
 ## Limitations
 
 * Does not support radio buttons.
-* May fail with some PDF forms.
-  * Original author suggests to try the "compress and reduce size function in Acrobat".
-  * Converting the PDF to v1.5 may also help, as v1.6+ increased the complexity of form manipulation.
+* Some input PDFs may fail to parse or output with errors.
+  * Ensuring every input field is assigned an embedded font seems to greatly increase compatibility.
+  * Converting the PDF to v1.5 improves compatibility, as v1.6+ increased the complexity of form manipulation.
+  * If all else fails, the original author suggests to try the "compress and reduce size function in Acrobat".
 
 ## Usage Example
 
